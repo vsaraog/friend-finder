@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+        Friend Finder Survey
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    </head>
+<body>
+    <form id="questionnaire-form">
+        <div class="form-group col-md-3">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name"  required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="photo">Photo</label>
+            <input type="text" class="form-control" id="photo" placeholder="Enter URL" required>
+        </div>
+    <!--
+        <div class="form-group col-md-3">
+            <label for="question1">Question 1</label>
+            <select class="form-control" id="question1" required>
+                <option selected value="">Select Option</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="question1">Question 2</label>
+            <select class="form-control" id="question2" required>
+                <option selected value="">Select Option</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="question1">Question 3</label>
+            <select class="form-control" id="question3" required>
+                <option selected value="">Select Option</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="question1">Question 4</label>
+            <select class="form-control" id="question4" required>
+                <option selected value="">Select Option</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="question1">Question 5</label>
+            <select class="form-control" id="question5" required>
+                <option selected value="">Select Option</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+        -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="modal-launcher">
+        Launch demo modal
+      </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    function randomNum() {
+        return Math.round(Math.random() * 10);
+    }
+
+    $("#questionnaire-form").submit(function(event) {
+        console.log("In click function");
+
+        event.preventDefault();
+        let formValues = {
+            "name": $("#name").val().trim(),
+            "photo": $("#photo").val().trim(),
+            "scores": []
+        }
+
+        for (let i = 1; i <= 5; ++i) {
+            formValues.scores.push($('#question'+i).val())
+        }
+
+        console.log(formValues);
+        $.post("/api/friends", formValues, data => {
+            console.log($("#exampleModalCenter").text());
+            console.log(data);
+
+            $("#exampleModalCenter").modal();
+        })
+    });
+</script>
