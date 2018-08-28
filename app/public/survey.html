@@ -26,7 +26,6 @@
             <label for="photo">Photo</label>
             <input type="text" class="form-control" id="photo" placeholder="Enter URL" required>
         </div>
-    <!--
         <div class="form-group col-md-3">
             <label for="question1">Question 1</label>
             <select class="form-control" id="question1" required>
@@ -39,7 +38,7 @@
             </select>
         </div>
         <div class="form-group col-md-3">
-            <label for="question1">Question 2</label>
+            <label for="question2">Question 2</label>
             <select class="form-control" id="question2" required>
                 <option selected value="">Select Option</option>
                 <option>1</option>
@@ -50,7 +49,7 @@
             </select>
         </div>
         <div class="form-group col-md-3">
-            <label for="question1">Question 3</label>
+            <label for="question3">Question 3</label>
             <select class="form-control" id="question3" required>
                 <option selected value="">Select Option</option>
                 <option>1</option>
@@ -61,7 +60,7 @@
             </select>
         </div>
         <div class="form-group col-md-3">
-            <label for="question1">Question 4</label>
+            <label for="question4">Question 4</label>
             <select class="form-control" id="question4" required>
                 <option selected value="">Select Option</option>
                 <option>1</option>
@@ -72,7 +71,7 @@
             </select>
         </div>
         <div class="form-group col-md-3">
-            <label for="question1">Question 5</label>
+            <label for="question5">Question 5</label>
             <select class="form-control" id="question5" required>
                 <option selected value="">Select Option</option>
                 <option>1</option>
@@ -82,34 +81,93 @@
                 <option>5</option>
             </select>
         </div>
-        -->
+        <div class="form-group col-md-3">
+                <label for="question6">Question 6</label>
+                <select class="form-control" id="question6" required>
+                    <option selected value="">Select Option</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                    <label for="question7">Question 7</label>
+                    <select class="form-control" id="question7" required>
+                        <option selected value="">Select Option</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                        <label for="question8">Question 8</label>
+                        <select class="form-control" id="question8" required>
+                            <option selected value="">Select Option</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                            <label for="question9">Question 9</label>
+                            <select class="form-control" id="question9" required>
+                                <option selected value="">Select Option</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                                <label for="question10">Question 10</label>
+                                <select class="form-control" id="question10" required>
+                                    <option selected value="">Select Option</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                                                            
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
       <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="modal-launcher">
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="modal-launcher">
         Launch demo modal
       </button>
-      
+       -->
       <!-- Modal -->
       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+              <h5 class="modal-title" id="exampleModalLongTitle">Match Found!</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              ...
+                <p id="matched-name">Testing</p>
+                <img id="matched-img-link"></img>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
             </div>
           </div>
         </div>
       </div>
+
+      <a href="/api/friends"> Friends List</a> |
+      <a href="https://github.com/vsaraog/friend-finder"> Github </a> 
 </body>
 </html>
 
@@ -128,16 +186,25 @@
             "scores": []
         }
 
-        for (let i = 1; i <= 5; ++i) {
+        for (let i = 1; i <= 10; ++i) {
             formValues.scores.push($('#question'+i).val())
+            // let num = randomNum();
+            // console.log(num);
+            // formValues.scores.push(num);
         }
 
         console.log(formValues);
-        $.post("/api/friends", formValues, data => {
-            console.log($("#exampleModalCenter").text());
-            console.log(data);
+        console.log("outside", this);
 
-            $("#exampleModalCenter").modal();
+        const modalWindow = $("#exampleModalCenter");
+        const matchedName = $("#matched-name");
+        const matchedImgLink = $("#matched-img-link");
+        $.post("/api/friends", formValues, data => {
+            console.log("inside", this);
+
+            modalWindow.modal("toggle");
+            matchedName.html(data.name);
+            matchedImgLink.attr("src", data.photo);
         })
     });
 </script>

@@ -11,10 +11,10 @@ app.get("/api/friends", (req, resp) => {
 app.post("/api/friends", (req, resp) => {
     console.log(req.body);
     usersData.push(req.body);
+    resp.json(getMostCompatible(req.body));
 })
 }
 
-// VIK_TODO: Move to separate module
 function getMostCompatible(finder) {
     const finderArr = finder.scores;
     let closestCompatible;
@@ -26,9 +26,9 @@ function getMostCompatible(finder) {
         // for some reason
         const sameSize = (otherArr.length === finderArr.length);
         console.assert(sameSize, "Score arrays are not same size");
-        if (sameSize) {
+        if ((elem.name != finder.name) && sameSize) {
             let currentScore = 0;
-            for (let i = 0; i < len; ++i) {
+            for (let i = 0; i < otherArr.length; ++i) {
                 currentScore += Math.abs(finderArr[i] - otherArr[i]);
             }
 
